@@ -74,7 +74,8 @@ const View = (() => {
         pendingtaskcontainer:".pendingtask_container",
         inputbox:".todolist_input",
         submitbutton:".submitbtn",
-        movebutton:".pendingmovebtn"
+        movebutton:".pendingmovebtn",
+        editbutton:".pendingeditbtn"
     };
 
 
@@ -165,8 +166,6 @@ const Model = ((api, view) => {
 
             const pendingtmp = view.creatependingTmp(this.#todolist.filter(item => item.completed == false));
             const completedtmp = view.createcompeletedTmp(this.#todolist.filter(item => item.completed == true));
-
-
 
             view.render(pendingcontainer, pendingtmp);
             view.render(completedcontainer, completedtmp);
@@ -267,37 +266,60 @@ const Controller = ((model, view) => {
 
 
     const editPending = () => {
-        const pendingtaskcontainer = document.querySelector(view.pending.pendingtaskcontainer);
+        let isEditing = false;
 
+        const pendingtaskcontainer = document.querySelector(view.pending.pendingtaskcontainer);
+        
         pendingtaskcontainer.addEventListener("click", (event) => {
 
             const id = event.target.id;
             let input = document.getElementById(id).children[1];
-
-            let isEditing = false;
-
-            if (event.target.className === "pendingeditbtn" && isEditing == false) {
+            
+            if (event.target.className === "pendingeditbtn") {
+                if(isEditing === false){
                 
                 document.getElementById(id).children[0].style.display = "none";
-                
-                input.display = "inline";
+                input.style.display = "inline";
                 input.value = document.getElementById(id).children[0].innerHTML;
+                // console.log(isEditing);
                 isEditing = true
-                console.log(document.getElementById(id).children[0].innerHTML);
-            }
-
-            if(event.target.className === "pendingeditbtn" && isEditing == true) {
-    
-                isEditing = false;               
-                input.display = "none";
-                model.updateTodoContents(id, input.value, false).then(init);
+                // console.log(isEditing);
                 
-            }
+                }else{
+                    console.log(input.value);
+                    isEditing = false;                               
+                    model.updateTodoContents(id, input.value, false).then(init);
 
-            // console.log(isEditing);
-
+                };
+            };
         })
-    }
+    };
+
+
+    const editCompleted = () => {
+        let isEditing = false;
+
+        const completedtaskcontainer = document.querySelector(view.completed.completedtaskcontainer);
+        
+        completedtaskcontainer.addEventListener("click", (event) => {
+            const id = event.target.id;
+            let input = document.getElementById(id).children[2];
+            if(event.target.className === "compeditbtn") {
+                if(isEditing === false) {
+                    document.getElementById(id).children[1].style.display = "none";
+                    input.style.display = "inline";
+                    input.value = document.getElementById(id).children[1].innerHTML;
+                    isEditing = true;
+                }else{
+                    isEditing = false;
+                    model.updateTodoContents(id, input.value, true).then(init);
+                };
+            };
+        })
+    };
+
+
+
 
 
 
@@ -317,6 +339,7 @@ const Controller = ((model, view) => {
         moveToCompleted();
         moveToPending();
         editPending();
+        editCompleted();
     };
 
     return { bootstrap };
