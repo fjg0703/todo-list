@@ -246,6 +246,7 @@ const Controller = ((model, view) => {
             if (event.target.className === "pendingmovebtn") {
                 const id = event.target.id;
                 const title = document.getElementById(id).children[0].innerHTML;
+                console.log(id, title);
                 model.updateTodoStatus(id, title, true).then(init);
             }
             
@@ -286,7 +287,7 @@ const Controller = ((model, view) => {
                 // console.log(isEditing);
                 
                 }else{
-                    console.log(input.value);
+                    // console.log(input.value);
                     isEditing = false;                               
                     model.updateTodoContents(id, input.value, false).then(init);
 
@@ -318,13 +319,6 @@ const Controller = ((model, view) => {
         })
     };
 
-
-
-
-
-
-
-
     const init = () => {
 		model.getTodos().then((todos) => {
 			state.todolist = todos.reverse();
@@ -343,6 +337,7 @@ const Controller = ((model, view) => {
     };
 
     return { bootstrap };
+    
 })(Model, View);
 
 Controller.bootstrap();
