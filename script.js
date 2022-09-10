@@ -246,8 +246,7 @@ const Controller = ((model, view) => {
 
             if (event.target.className === "pendingmovebtn") {
                 const id = event.target.id;
-                const title = document.getElementById(id).innerHTML;
-                console.log(document.getElementById(id));
+                const title = document.getElementById(id).children[0].innerHTML;
                 model.updateTodoStatus(id, title, true).then(init);
             }
             
@@ -260,13 +259,7 @@ const Controller = ((model, view) => {
 
             if (event.target.className === "compmovebtn") {
                 const id = event.target.id;
-                console.log(id);
-                const title = document.getElementsByClassName("comptitle")[0].innerHTML;
-                
-
-                console.log(title);
-    
-                
+                const title = document.getElementById(id).children[1].innerHTML;
                 model.updateTodoStatus(id, title, false).then(init);            
             }
         });
@@ -301,7 +294,7 @@ const Controller = ((model, view) => {
                 
             }
 
-            console.log(isEditing);
+            // console.log(isEditing);
 
         })
     }

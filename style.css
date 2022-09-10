@@ -67,6 +67,8 @@ ul li {
 	text-transform: capitalize;
 	font-size: 1rem;
 	letter-spacing: 2px;
+	
+
 
 	width: 100%;
 	height: var(--height-todolist-header);
@@ -77,8 +79,21 @@ ul li {
 	list-style: none;
 	padding-left: 10px;
 
-	display: flex;
-	/* justify-content: space-between; */
+	
+}
+
+
+.pendingtask_container li {
+	display: grid;
+	grid-template-columns: 70% 10% 10% 10%;
+	text-align: center;
+}
+
+.completedtask_container li {
+	display: grid;
+	grid-template-columns: 10% 70% 10% 10%;
+	text-align: center;
+
 }
 
 
