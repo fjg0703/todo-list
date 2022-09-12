@@ -24,12 +24,12 @@ const Api = (() => {
         }).then((response) => response.json());
 
     const updateTodoStatus = (id, title, completed) =>{
-
         const todo = {
             title: title,
             completed: completed
         }
-
+        
+        
         fetch([baseUrl, todopath, id].join("/"), {
             method: "PUT",
             body: JSON.stringify(todo),
@@ -203,6 +203,8 @@ const Controller = ((model, view) => {
 				state.todolist = state.todolist.filter(
 					(todo) => +todo.id !== +event.target.id
 				);
+                // console.log(model);
+                // console.log(model.deleteTodo(event.target.id));
 				model.deleteTodo(event.target.id);
 			}
 		});
@@ -246,7 +248,8 @@ const Controller = ((model, view) => {
             if (event.target.className === "pendingmovebtn") {
                 const id = event.target.id;
                 const title = document.getElementById(id).children[0].innerHTML;
-                console.log(id, title);
+
+                location.reload(); 
                 model.updateTodoStatus(id, title, true).then(init);
             }
             
@@ -260,6 +263,7 @@ const Controller = ((model, view) => {
             if (event.target.className === "compmovebtn") {
                 const id = event.target.id;
                 const title = document.getElementById(id).children[1].innerHTML;
+                location.reload(); 
                 model.updateTodoStatus(id, title, false).then(init);            
             }
         });
@@ -288,7 +292,8 @@ const Controller = ((model, view) => {
                 
                 }else{
                     // console.log(input.value);
-                    isEditing = false;                               
+                    isEditing = false;     
+                    location.reload();                          
                     model.updateTodoContents(id, input.value, false).then(init);
 
                 };
@@ -313,7 +318,9 @@ const Controller = ((model, view) => {
                     isEditing = true;
                 }else{
                     isEditing = false;
+                    location.reload(); 
                     model.updateTodoContents(id, input.value, true).then(init);
+                    
                 };
             };
         })
