@@ -233,7 +233,7 @@ const Controller = ((model, view) => {
                 model.addTodo(todo).then(todofromBE => {
                 state.todolist = [todofromBE, ...state.todolist];
         });
-        event.target.value = '';
+        document.querySelector(".todolist_input").value = '';
 			}
 		});
 	};
