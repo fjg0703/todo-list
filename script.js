@@ -30,14 +30,16 @@ const Api = (() => {
         }
         
         
-        fetch([baseUrl, todopath, id].join("/"), {
+        return fetch([baseUrl, todopath, id].join("/"), {
             method: "PUT",
             body: JSON.stringify(todo),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
             },
         }).then((response) => response.json());
+    
     };
+
 
     const updateTodoContents = (id, title, completed) => {
         const todo = {
@@ -45,7 +47,7 @@ const Api = (() => {
             completed: completed
         }
 
-        fetch([baseUrl, todopath, id].join("/"), {
+        return fetch([baseUrl, todopath, id].join("/"), {
             method: "PUT",
             body: JSON.stringify(todo),
             headers: {
@@ -249,7 +251,7 @@ const Controller = ((model, view) => {
                 const id = event.target.id;
                 const title = document.getElementById(id).children[0].innerHTML;
 
-                location.reload(); 
+                //location.reload(); 
                 model.updateTodoStatus(id, title, true).then(init);
             }
             
@@ -263,7 +265,7 @@ const Controller = ((model, view) => {
             if (event.target.className === "compmovebtn") {
                 const id = event.target.id;
                 const title = document.getElementById(id).children[1].innerHTML;
-                location.reload(); 
+                //location.reload(); 
                 model.updateTodoStatus(id, title, false).then(init);            
             }
         });
@@ -293,13 +295,15 @@ const Controller = ((model, view) => {
                 }else{
                     // console.log(input.value);
                     isEditing = false;     
-                    location.reload();                          
+                    //location.reload();                          
                     model.updateTodoContents(id, input.value, false).then(init);
 
                 };
             };
         })
     };
+
+
 
 
     const editCompleted = () => {
