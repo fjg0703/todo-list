@@ -322,7 +322,7 @@ const Controller = ((model, view) => {
                     isEditing = true;
                 }else{
                     isEditing = false;
-                    location.reload(); 
+                    //location.reload(); 
                     model.updateTodoContents(id, input.value, true).then(init);
                     
                 };
